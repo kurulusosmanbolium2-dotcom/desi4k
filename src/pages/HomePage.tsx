@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { getAllVideos } from "../lib/firestore";
-import type { Video } from "../types/video";
-import { formatViews, formatDuration } from "../types/video";
+import type { Videos } from "../types/videos";
+import { formatViews, formatDuration } from "../types/videos";
 
 const LOGO = "https://i.ibb.co.com/KJR1M1S/Airbrush-IMAGE-ENHANCER-1780990857633-1780990857634.png";
 
 export default function HomePage() {
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<Videos[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -82,7 +82,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-            {filtered.map((v) => <VideoCard key={v.id} video={v} />)}
+            {filtered.map((v) => <VideoCard key={v.id} videos={v} />)}
           </div>
         )}
       </main>
@@ -90,10 +90,10 @@ export default function HomePage() {
   );
 }
 
-function VideoCard({ video }: { video: Video }) {
+function VideoCard({ videos }: { videos: Videos }) {
   const [hover, setHover] = useState(false);
   return (
-    <Link href={`/video/${video.id}`} style={{ textDecoration: "none" }}>
+    <Link href={`/videos/${videos.id}`} style={{ textDecoration: "none" }}>
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -105,7 +105,7 @@ function VideoCard({ video }: { video: Video }) {
       >
         <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#111", overflow: "hidden" }}>
           <img
-            src={video.thumb} alt={video.title}
+            src={videos.thumb} alt={videos.title}
             style={{ width: "100%", height: "100%", objectFit: "cover", transform: hover ? "scale(1.05)" : "scale(1)", transition: "transform 0.3s" }}
             onError={(e) => { (e.target as HTMLImageElement).src = "https://placehold.co/480x270/13162a/555?text=No+Thumbnail"; }}
           />
@@ -118,7 +118,7 @@ function VideoCard({ video }: { video: Video }) {
           )}
           {video.duration && (
             <div style={{ position: "absolute", bottom: 6, right: 6, background: "rgba(0,0,0,0.85)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 7px", borderRadius: 5 }}>
-              {formatDuration(video.duration)}
+              {formatDuration(videos.duration)}
             </div>
           )}
         </div>
@@ -132,8 +132,8 @@ function VideoCard({ video }: { video: Video }) {
             {video.title}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555" }}>
-            <span>👁 {formatViews(video.views)} views</span>
-            {video.duration && <span>⏱ {formatDuration(video.duration)}</span>}
+            <span>👁 {formatViews(videos.views)} views</span>
+            {videos.duration && <span>⏱ {formatDuration(video.duration)}</span>}
           </div>
         </div>
       </div>
