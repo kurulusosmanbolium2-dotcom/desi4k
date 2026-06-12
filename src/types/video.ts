@@ -1,4 +1,4 @@
-export interface Video {
+export interface Videos {
   id: string; title: string; src: string; description: string;
   keyword: string; thumb: string; tags: string[] | string;
   views: number; duration: string | number;
