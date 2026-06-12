@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { getAllVideos } from "../lib/firestore";
-import type { Videos } from "../types/videos";
-import { formatViews, formatDuration } from "../types/videos";
+import type { Video } from "../types/video";
+import { formatViews, formatDuration } from "../types/video";
 
 const LOGO = "https://i.ibb.co.com/KJR1M1S/Airbrush-IMAGE-ENHANCER-1780990857633-1780990857634.png";
 
 export default function HomePage() {
-  const [videos, setVideos] = useState<Videos[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -43,7 +43,7 @@ export default function HomePage() {
           <div style={{ flex: 1, maxWidth: 420 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#1a1d2a", border: "1px solid #2a2d3a", borderRadius: 10, padding: "8px 12px" }}>
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5c518" strokeWidth={2}>
-                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <input
                 type="search"
@@ -82,7 +82,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-            {filtered.map((v) => <VideoCard key={v.id} videos={v} />)}
+            {filtered.map((v) => <VideoCard key={v.id} video={v} />)}
           </div>
         )}
       </main>
@@ -90,10 +90,10 @@ export default function HomePage() {
   );
 }
 
-function VideoCard({ videos }: { videos: Videos }) {
+function VideoCard({ video }: { video: Video }) {
   const [hover, setHover] = useState(false);
   return (
-    <Link href={`/videos/${videos.id}`} style={{ textDecoration: "none" }}>
+    <Link href={`/video/${video.id}`} style={{ textDecoration: "none" }}>
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -105,20 +105,20 @@ function VideoCard({ videos }: { videos: Videos }) {
       >
         <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#111", overflow: "hidden" }}>
           <img
-            src={videos.thumb} alt={videos.title}
+            src={video.thumb} alt={video.title}
             style={{ width: "100%", height: "100%", objectFit: "cover", transform: hover ? "scale(1.05)" : "scale(1)", transition: "transform 0.3s" }}
             onError={(e) => { (e.target as HTMLImageElement).src = "https://placehold.co/480x270/13162a/555?text=No+Thumbnail"; }}
           />
           {hover && (
             <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#f5c518", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="20" height="20" fill="#111" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                <svg width="20" height="20" fill="#111" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
               </div>
             </div>
           )}
           {video.duration && (
             <div style={{ position: "absolute", bottom: 6, right: 6, background: "rgba(0,0,0,0.85)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 7px", borderRadius: 5 }}>
-              {formatDuration(videos.duration)}
+              {formatDuration(video.duration)}
             </div>
           )}
         </div>
@@ -132,8 +132,8 @@ function VideoCard({ videos }: { videos: Videos }) {
             {video.title}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555" }}>
-            <span>👁 {formatViews(videos.views)} views</span>
-            {videos.duration && <span>⏱ {formatDuration(video.duration)}</span>}
+            <span>👁 {formatViews(video.views)} views</span>
+            {video.duration && <span>⏱ {formatDuration(video.duration)}</span>}
           </div>
         </div>
       </div>
