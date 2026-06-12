@@ -2,11 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const app = initializeApp({
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBYNU7wTq9_1-TdIVuG-yxAlKjeFb9Rm_M",
+  authDomain: "video-cms-b7c1e.firebaseapp.com",
+  projectId: "video-cms-b7c1e",
+  storageBucket: "video-cms-b7c1e.firebasestorage.app",
+  messagingSenderId: "991575420179",
+  appId: "1:991575420179:web:23459a09aa36f868e37ee6",
 });
+
 export const db = getFirestore(app);
