@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /admin.html
-
-Sitemap: https://desi4kporn.site/sitemap.xml
