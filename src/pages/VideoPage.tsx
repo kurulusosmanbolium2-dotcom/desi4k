@@ -20,7 +20,7 @@ export default function VideoPage() {
     viewCountedRef.current = false;
     setLoading(true); setError(null); setVideo(null); setRelated([]); setDescExpanded(false);
 
-    Promise.all([getVideo(id), getAllVideos()])
+    Promise.all([getVideos(id), getAllVideos()])
       .then(([vid, allVids]) => {
         if (!vid) { setError("Video not found."); return; }
         setVideo(vid);
