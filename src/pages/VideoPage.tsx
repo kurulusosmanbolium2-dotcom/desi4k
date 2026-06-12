@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "wouter";
-import { getVideo, getAllVideos, incrementViews } from "../lib/firestore";
-import type { Video } from "../types/video";
+import { getVideos, getAllVideos, incrementViews } from "../lib/firestore";
+import type { Videos } from "../types/video";
 import { getTags, formatViews, formatDuration } from "../types/video";
 
 const LOGO = "https://i.ibb.co.com/KJR1M1S/Airbrush-IMAGE-ENHANCER-1780990857633-1780990857634.png";
